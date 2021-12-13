@@ -1,4 +1,4 @@
-# 4D-reconstruction-of-developmental-trajectories-using-spherical-harmonics
+# 4D reconstruction of developmental trajectories using spherical harmonics
 
 
 _coming soon ..._
