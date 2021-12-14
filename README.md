@@ -4,6 +4,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
+[![CI status][CI-shield]][CI-url]
 <!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
 
@@ -73,3 +74,6 @@ This project is [MIT](https://github.com/gioda/4D-reconstruction-of-developmenta
 [linkedin-url]: https://linkedin.com/in/giovanni-dalmasso
 [product-screenshot]: images/screenshot.png
 <!-- [product-screenshot]: images/screenshot.png -->
+[CI-shield]: https://github.com/dguo/make-a-readme/workflows/CI/badge.svg
+[CI-url]: https://github.com/gioda/4D-reconstruction-of-developmental-trajectories-using-spherical-harmonics/actions
+
