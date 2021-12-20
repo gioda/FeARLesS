@@ -16,9 +16,28 @@
   </a>
 </p>
 
-> coming soon ...
 
 ### 🏠 [Homepage](https://vedo.embl.es/fearless/#/home)
+
+<br />
+
+<p align="justify">
+Computer based approach to recreate the continuous evolution in time and space of developmental stages from <b><i>3D volumetric images</i></b>. This method uses the mathematical approach of <b><i>spherical harmonics</i></b> to re-map discrete shape data into a space in which facilitates a smooth interpolation over time.
+
+This aproach was tested on mouse limb buds (from E10 to E12.5) and embryonic hearts (from 10 to 29 somites). 
+
+A key advantage of this method is that the resulting <b><i>4D trajectory</i></b> takes advantage of all the available data, while also being able to interpolate well through time intervals for which there is little or no data.
+
+For more information --> https://doi.org/10.1101/2021.12.16.472948
+</p>
+
+
+<br />
+
+![video](https://user-images.githubusercontent.com/29924733/146750585-d6c0b9cb-8b5c-49c7-86f9-92fba875b14d.mp4)
+
+
+---
 
 ## Authors
 
