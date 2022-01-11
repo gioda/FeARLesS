@@ -58,14 +58,13 @@ if len(parameters) != 2:
     exit()
 
 #############################################################
-# lmax = int(parameters[1])       # maximum degree of the spherical harm. expansion
-lmax = 50
+# maximum degree of the spherical harm. expansion
+lmax = int(parameters[1])
 N = 500          # number of grid intervals on the unit sphere
-rmax = 1400  # 2.0
+rmax = 1400
 x0 = [0, 0, 0]  # set object at this position
 xLimb = [-200, 0, 200]
 cutOrigin = [150, 0, 0]
-
 deg_fit = 6
 
 
@@ -86,17 +85,10 @@ totLimbs = len(limbs)
 printc('tot # limbs --> ', totLimbs, c='y')
 
 
-# CM = limbs[-1].centerOfMass()
-# show(limbs[-1].pos(xLimb), Sphere(pos=x0, r=rmax, alpha=0.9),
-#      Point(x0, r=20, c='b'), Point(CM, r=20, c='r'))
-
-# exit()
-
 ################################
 # finding time from limbs' file names
 Tall = []
 for j in range(totLimbs):
-    # Tall.append(float(limbs[j].filename.split('/')[-1].split('_')[0]))
     Tall.append(float(limbs[j].filename.split('/')[-1].split('_')[1]))
 
 Tall = np.array(Tall)
@@ -201,7 +193,6 @@ for t in pb.range():
             pts2.append(p)
 
     mesh2 = Points(pts2, r=20, c="r", alpha=1)
-    # .cutWithPlane(origin=[0, 0, 0])  # .scale(1/scalingF[t])
     mesh2.clean(0.005)
 
     surfTmp = recoSurface(mesh2.cutWithPlane(origin=[-30, 0, 0]),
@@ -212,8 +203,8 @@ for t in pb.range():
     surf.smooth()
 
     # #Reconstruction
-    # write(mesh2, path_results + 'Points_Limb-rec_' +
-    #       str(Treal[t]) + '.vtk', binary=False)
+    write(mesh2, path_results + 'Points_Limb-rec_' +
+          str(Treal[t]) + '.vtk', binary=False)
     write(surf, path_results + 'Limb-rec_' +
           str(Treal[t]) + '.vtk', binary=False)
 
