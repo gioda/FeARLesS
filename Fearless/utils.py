@@ -10,6 +10,7 @@
 # @License: MIT
 # @Copyright: Copyright © 2021 Giovanni Dalmasso
 
+import pyshtools
 import gc
 import numpy as np
 import os
@@ -91,3 +92,89 @@ def voxelIntensity(vol, expo, N, radiusDiscretisation):
 
     # return allIntensitiesMatrix
     return np.array(scalars).reshape((N * N, radiusDiscretisation))
+
+
+def forwardTransformation(matrixOfIntensities, N, lmax):
+
+    ##############################################
+
+    coeff = matrixOfIntensities
+
+    ##############################################
+    # SPHARNM
+    allClm = np.zeros((matrixOfIntensities.shape[1], 2, lmax, lmax))
+    for j in range(allClm.shape[0]):
+        formattedcoeff = np.reshape(coeff[:, j], (N, N))
+        SH = pyshtools.SHGrid.from_array(formattedcoeff)
+        clm = SH.expand()
+
+        allClm[j, :, :, :] = clm.to_array(lmax=lmax - 1)
+
+    del formattedcoeff, clm, matrixOfIntensities
+
+    return allClm
+
+
+def inverseTransformations(allClm, allIntensitiesShape, N, lmax):
+    """Make inverse SPHARM."""
+    from scipy.interpolate import griddata
+
+    aSH_recoMatrix = np.zeros((allIntensitiesShape[0], allIntensitiesShape[1]))
+
+    for j in range(allClm.shape[0]):
+        # inverse SPHARM coefficients
+        clmCoeffs = pyshtools.SHCoeffs.from_array(allClm[j, :, :, :])
+        SH_reco = clmCoeffs.expand(lmax=lmax - 1)
+        # grid_reco.plot()
+        aSH_reco = SH_reco.to_array()
+
+        ##############################
+        pts1 = []
+        ll = []
+        for ii, long in enumerate(np.linspace(0, 360, num=aSH_reco.shape[1], endpoint=True)):
+            for jj, lat in enumerate(np.linspace(90, -90, num=aSH_reco.shape[0], endpoint=True)):
+                th = np.deg2rad(90 - lat)
+                ph = np.deg2rad(long)
+                p = spher2cart(aSH_reco[jj][ii], th, ph)
+                pts1.append(p)
+                ll.append((lat, long))
+
+        radii = aSH_reco.T.ravel()
+
+        # make a finer grid
+        n = N * 1j
+        l_min, l_max = np.array(ll).min(axis=0), np.array(ll).max(axis=0)
+        grid = np.mgrid[l_max[0]:l_min[0]:n, l_min[1]:l_max[1]:n]
+        grid_x, grid_y = grid
+        agrid_reco_finer = griddata(ll, radii, (grid_x, grid_y), method='cubic')
+        ##############################
+
+        formatted_aSH_reco = np.reshape(agrid_reco_finer, (N * N))
+
+        aSH_recoMatrix[:, j] = formatted_aSH_reco
+
+    del formatted_aSH_reco, agrid_reco_finer, grid_x, grid_y, grid
+
+    return aSH_recoMatrix
+
+
+def samplePoints(vol, expo, N, radiusDiscretisation):
+    """Compute sample points."""
+    pos = vol.center()
+    rmax = vol.diagonalSize()/2
+
+    samplePoints = []
+    for th in np.linspace(0, np.pi, N, endpoint=False):
+        for ph in np.linspace(0, 2*np.pi, N, endpoint=False):
+
+            # compute sample points
+            p = spher2cart(rmax, th, ph)
+            # making discretization more dense away from the center
+            p_tmp = p / (radiusDiscretisation-1)**expo
+            for j in range(radiusDiscretisation):
+                SP = pos + p_tmp * (j**expo)
+                samplePoints.append(SP)
+
+    del vol
+
+    return np.array(samplePoints)
