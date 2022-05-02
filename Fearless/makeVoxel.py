@@ -6,7 +6,7 @@
 # @Project: FeARLesS
 # @Filename: makeVoxel.py
 # @Last modified by:   gio
-# @Last modified time: 13-Jan-2022
+# @Last modified time: 02-May-2022
 # @License: MIT
 # @Copyright: Copyright © 2021 Giovanni Dalmasso
 
@@ -19,10 +19,10 @@ import numpy as np
 """Convert a vtk mesh from the limb-data files into voxel data."""
 
 
-LimbsPath = '../data/Limbs_Flank/'
+DataPath = 'limbs+flank/'
 
 
-limbs = load(LimbsPath + '*.vtk')
+limbs = load(DataPath + '*.vtk')
 totLimbs = len(limbs)
 printc("limbs # ", totLimbs, invert=1)
 
@@ -34,6 +34,7 @@ path_results = 'res/TIF-signedDist_sampleSize' + \
 
 pathExists(path_results)
 
+# needed to have all the normals pointing in the same direction
 noMirror = [4, 5, 6, 8, 9, 13, 14, 16, 17, 18, 19, 20, 22, 23, 25, 26, 27, 29, 30, 31, 33, 34,
             35, 37, 38, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50, 52, 53, 55, 56, 59, 63, 64, 67, 68]
 
