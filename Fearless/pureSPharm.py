@@ -6,7 +6,7 @@
 # @Project: FeARLesS
 # @Filename: pureSPharm.py
 # @Last modified by:   gio
-# @Last modified time: 15-Dec-2021
+# @Last modified time: 02-May-2022
 # @License: MIT
 # @Copyright: Copyright © 2021 Giovanni Dalmasso
 
@@ -15,7 +15,7 @@ from sys import argv, exit
 from scipy.interpolate import griddata
 import numpy as np
 
-from vedo import printc, load, spher2cart, mag, ProgressBar,   Points, recoSurface, write
+from vedo import printc, load, spher2cart, mag, ProgressBar, Points, recoSurface, write
 from utils import pathExists
 
 import pyshtools
@@ -68,7 +68,7 @@ cutOrigin = [150, 0, 0]
 deg_fit = 6
 
 
-LimbsPath = '../data/Limbs_noFlank/'
+DataPath = 'limbs-noFlank/'
 path_results = 'res/' \
     'pure_spharm' + '-lmax' + str(lmax) + '-N' + \
     str(N) + '-deg_fit' + str(deg_fit) + '/'
@@ -79,7 +79,7 @@ pathExists(path_results)
 printc('lmax =', lmax, 'N =', N, 'deg_fit =', deg_fit, c='y')
 
 printc("loading limbs ...", c='y')
-limbs = load(LimbsPath + '*.vtk')
+limbs = load(DataPath + '*.vtk')
 
 totLimbs = len(limbs)
 printc('tot # limbs --> ', totLimbs, c='y')
