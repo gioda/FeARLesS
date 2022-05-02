@@ -39,6 +39,47 @@ For more information --> https://doi.org/10.1101/2021.12.16.472948
 
 ---
 
+## Datasets
+
+<p align="justify">
+All the data can be dowloaded from --> https://www.ebi.ac.uk/biostudies/studies/S-BIAD441 (folders `/limbs-noFlank/` and `/limbs+flank/`).
+
+
+## Pipeline
+
+Follow the pipeline steps below to reproduce the analysis results.
+
+
+#### `python pureSPharm.py`
+- _Description:_ compute the spherical harmonics decomposition and reconstruction producing the 4D trajectory of the growing limb buds _without the flank_ (original data can be found in the folder `/limbs-noFlank/` of the archive). 
+- _Usage:_ in the code, `DataPath` should be change to the location of the folder `/limbs-noFlank/` downloaded from the archive. Run the code with the command: `python pureSPharm.py lmax`, where `lmax` is the desired degree of shaprical harmonics expansion. 
+- _Results:_ the results will be stored in a floder created automatically of the form `res/pure_spharm-lmax-N-deg_fit/` where `N` is the number of grid intervals on the sphere and `deg_fit` the degree of interpolation of the spherical harmonics coefficients. If the results folder already exists the code will ask if the user wants to delete it and continue or stop.
+
+---
+
+#### `python makeVoxel.py`
+- _Description:_ convert a vtk mesh from the limb-data files into voxel data (original data can be found in the folder `/limbs+flank/` of the archive).
+- _Usage:_ in the code, `DataPath` should be change to the location of the folder `/limbs+flank/` downloaded from the archive. Run the code with the command: `python makeVoxel.py`.
+- _Results:_ ihe results will be stored in a floder created automatically of the form `res/TIF-signedDist_sampleSize100/`. Changing in the code the variable `sampleSize` will also change the name of the results folder. If the results folder already exists the code will ask if the user wants to delete it and continue or stop.
+
+---
+
+#### `python computeAllIntesities.py`
+- _Description:_ compute the voxel intensities along the radii of a sphere of the voxel-limb-data obtained in the previous step.
+- _Usage:_ in the code, `DataPath` should be change to the location of the folder `res/TIF-signedDist_sampleSize100/` obtained in the previous step. Run the code with the command: `python computeAllIntesities.py`.
+- _Results:_ ihe results will be stored in a floder created automatically of the form `res/allIntensities-sampleSize100-radiusDiscretisation-N/` where `radiusDiscretisation` is the discretisation of the radii of the sphere and `N` is the number of grid intervals on the sphere. Changing in the code the variable `radiusDiscretisation` and `N` will also change the name of the results folder. If the results folder already exists the code will ask if the user wants to delete it and continue or stop. The results will be in the form of _numpy_ files, one for each limb.
+
+---
+
+#### `python morphing.py`
+- _Description:_ produce the 4D trajectory of the growing limb buds _with the flank_ using the voxel intensities computed in the previous step.
+- _Usage:_ in the code, `path` should be change to the location of the folder `res/allIntensities-sampleSize100-radiusDiscretisation-N/`obtained in the previous step. Run the code with the command: `python morphing.py`.
+- _Results:_ two folder will be created automatically, `res/CLM/morphing_sampleSize-radDisc-N-degFit-lmax/` and `res/morphing_sampleSize-radDisc-N-degFit-lmax/` (where `sampleSize` is voxel dimension of the data, `radDisc` is the discretisation of the radii of the sphere and `N` is the number of grid intervals on the sphere, `degFit` is the degree of interpolation of the spherical harmonics coefficients and `lmax` is the desired degree of shaprical harmonics expansion). In the first one, a matrix containing the shperical harmonics coefficients will be stored (in the form of _numpy_ file) and in the second the volumes and isosurfaces of the limbs forming the 4D trajectory. If the results folders already exist the code will ask if the user wants to delete them and continue or stop.
+
+</p>
+  
+---
+
 ## Authors
 
 👤 **Giovanni Dalmasso**
