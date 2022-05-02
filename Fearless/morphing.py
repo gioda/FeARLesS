@@ -6,7 +6,7 @@
 # @Project: FeARLesS
 # @Filename: morphing.py
 # @Last modified by:   gio
-# @Last modified time: 20-Jan-2022
+# @Last modified time: 02-May-2022
 # @License: MIT
 # @Copyright: Copyright © 2021 Giovanni Dalmasso
 
@@ -26,24 +26,24 @@ expo = 1.0
 deg_fit = 6
 
 printc('\n sampleSize', sampleSize, '- radiusDiscretisation',
-       radiusDiscretisation, '- N', N, '- lmax', lmax, '- expo', expo,
+       radiusDiscretisation, '- N', N, '- lmax', lmax,
        c='green')
 
 
 path = 'res/' \
     'allIntensities-sampleSize100-' + \
     'radiusDiscretisation-' + \
-    str(radiusDiscretisation) + '-N-' + str(N) + '-expo-' + str(expo)+'/'
+    str(radiusDiscretisation) + '-N-' + str(N) + '/'
 path_resultsCLM = 'res/' \
     '/CLM/'\
     'morphing_sampleSize' + str(sampleSize) + \
     '-radDisc' + str(radiusDiscretisation) + '-N' + str(N) + '-degFit' + \
-    str(deg_fit) + '-Epsilon' + str(expo) + '-lmax'+str(lmax) + '/'
+    str(deg_fit) + '-lmax'+str(lmax) + '/'
 path_results = 'res/' \
     'morphing_sampleSize' \
     + str(sampleSize) + \
     '-radDisc' + str(radiusDiscretisation) + '-N' + str(N) + '-degFit' + \
-    str(deg_fit) + '-Epsilon' + str(expo) + '-lmax'+str(lmax) + '/'
+    str(deg_fit) + '-lmax'+str(lmax) + '/'
 
 
 pathExists(path_resultsCLM)
