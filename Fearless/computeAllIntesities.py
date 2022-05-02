@@ -6,25 +6,16 @@
 # @Project: FeARLesS
 # @Filename: computeAllIntesities.py
 # @Last modified by:   gio
-# @Last modified time: 11-Jan-2022
+# @Last modified time: 02-May-2022
 # @License: MIT
 # @Copyright: Copyright © 2021 Giovanni Dalmasso
 
 
-from sys import argv, exit
-from vedo import printc, load
+from vedo import printc, load, ProgressBar
 
 from utils import pathExists, voxelIntensity
 import numpy as np
 
-#####################################
-# PARAMETERS
-parameters = argv
-if len(parameters) != 2:
-    printc('missing parameters!!!', c='r')
-    exit()
-
-j = int(parameters[1])
 
 radiusDiscretisation = 50
 N = 250
@@ -32,11 +23,11 @@ FFTexpansion = radiusDiscretisation
 expo = 1.0
 
 
-LimbsPath = '../data/Limbs_Flank/'
+DataPath = '../data/Limbs_Flank/'
 path_results = 'res/' \
     'allIntensities-sampleSize100-' + \
     'radiusDiscretisation-' + \
-    str(radiusDiscretisation) + '-N-' + str(N) + '-expo-' + str(expo)+'/'
+    str(radiusDiscretisation) + '-N-' + str(N) + '/'
 
 
 pathExists(path_results)
@@ -56,21 +47,24 @@ totlimbs = len(limbs)
 print(totlimbs, 'limbs!! \n')
 
 
-##############################################
-# loading files
-vol = load(LimbsPath + 'ReferenceShape_' +
-           str(limbs[j])[0:-1] + '_' + str(limbs[j])[-1] + '.vti')
+pb = ProgressBar(0, totlimbs, c=5)
+for j in pb.range():
 
-##############################################
-# computing voxel intensities
-allIntensities = voxelIntensity(vol, expo, N, radiusDiscretisation)
+    ##############################################
+    # loading files
+    vol = load(DataPath + 'ReferenceShape_' +
+               str(limbs[j])[0:-1] + '_' + str(limbs[j])[-1] + '.vti')
 
+    ##############################################
+    # computing voxel intensities
+    allIntensities = voxelIntensity(vol, expo, N, radiusDiscretisation)
 
-name = 'allIntensities_' + 'ReferenceShape_' + \
-    str(limbs[j])[0:-1] + '_' + str(limbs[j])[-1]
-np.save(path_results + name, allIntensities)
-printc('allIntensities', name, 'saved!', c='g')
+    name = 'allIntensities_' + 'ReferenceShape_' + \
+        str(limbs[j])[0:-1] + '_' + str(limbs[j])[-1]
+    np.save(path_results + name, allIntensities)
+    printc('allIntensities', name, 'saved!', c='g')
 
-if j == 0:
     allIntensitiesShape = allIntensities.shape
     np.save(path_results + 'allIntensitiesShape', allIntensitiesShape)
+
+    pb.print()
