@@ -76,6 +76,11 @@ Follow the pipeline steps below to reproduce the analysis results.
 - _Description:_ produce the 4D trajectory of the growing limb buds _with the flank_ using the voxel intensities computed in the previous step.
 - _Usage:_ in the code, `path` should be change to the location of the folder `res/allIntensities-sampleSize100-radiusDiscretisation-N/`obtained in the previous step. Run the code with the command: `python morphing.py`.
 - _Results:_ two folder will be created automatically, `res/CLM/morphing_sampleSize-radDisc-N-degFit-lmax/` and `res/morphing_sampleSize-radDisc-N-degFit-lmax/` (where `sampleSize` is voxel dimension of the data, `radDisc` is the discretisation of the radii of the sphere and `N` is the number of grid intervals on the sphere, `degFit` is the degree of interpolation of the spherical harmonics coefficients and `lmax` is the desired degree of shaprical harmonics expansion). In the first one, a matrix containing the shperical harmonics coefficients will be stored (in the form of _numpy_ file) and in the second the volumes and isosurfaces of the limbs forming the 4D trajectory. If the results folders already exist the code will ask if the user wants to delete them and continue or stop.
+  
+---
+  
+### `python utils.py`
+- _Description:_ contains some basic functions used.
 
 </p>
   
