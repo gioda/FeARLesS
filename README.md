@@ -108,7 +108,9 @@ Contributions, issues and feature requests are welcome!<br />Feel free to check 
 ## Show your support
 
 Give a ⭐️ if this project helped you!<br />
-  <br />
+  
+Cite the code: [![DOI](https://zenodo.org/badge/434319643.svg)](https://zenodo.org/badge/latestdoi/434319643)
+<br />
 
 
 [![vedo_powered](https://user-images.githubusercontent.com/32848391/94372929-13e0e400-0102-11eb-938c-bc0274d57108.png)](https://github.com/marcomusy/vedo)
