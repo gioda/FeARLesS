@@ -28,7 +28,9 @@ This aproach was tested on mouse limb buds (from E10 to E12.5) and embryonic hea
 
 A key advantage of this method is that the resulting <b><i>4D trajectory</i></b> takes advantage of all the available data, while also being able to interpolate well through time intervals for which there is little or no data.
 
-This method/code can be used to recreate the 4D growth of embryonic organs from 3D image datasets of the paper --> https://doi.org/10.1101/2021.12.16.472948
+This method/code can be used to recreate the 4D growth of embryonic organs from 3D image datasets of the paper:  
+Dalmasso _et al._, 4D reconstruction of murine developmental trajectories using spherical harmonics, Developmental
+Cell (2022) --> https://doi.org/10.1016/j.devcel.2022.08.005
 </p>
 
 
