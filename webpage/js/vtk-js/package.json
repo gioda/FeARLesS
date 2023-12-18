@@ -120,7 +120,7 @@
     "tap-spec": "5.0.0",
     "tape": "5.3.1",
     "tape-catch": "1.0.6",
-    "webpack": "5.52.1",
+    "webpack": "5.76.0",
     "webpack-bundle-analyzer": "4.4.2",
     "webpack-cli": "4.8.0",
     "webpack-dashboard": "3.3.6",
