@@ -128,7 +128,7 @@
     "webpack-merge": "5.8.0",
     "webpack-notifier": "1.13.0",
     "wslink": "1.0.7",
-    "xml2js": "0.4.23"
+    "xml2js": "0.5.0"
   },
   "peerDependencies": {
     "wslink": "^1.1.0"
