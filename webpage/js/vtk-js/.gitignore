@@ -1,0 +1,11 @@
+.DS_Store
+*.swp
+.npm-packages
+.npmrc
+npm-debug.log
+node_modules
+Data
+dist/
+coverage/
+.env
+Utilities/TestResults
