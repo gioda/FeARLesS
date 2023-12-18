@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Fearless Project</title>
+		<meta name="author" content="Fearless">
+		<meta name="description" content="4D reconstruction of developmental trajectories using spherical harmonics">
+		<link rel="icon" type="image/ico" href="images/favicon.ico"/>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+		<link rel="stylesheet" href="plugin/customcontrols/style.css">
+		<link rel="stylesheet" href="css/simplemenu.css">
+		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	</head>
+
+
+
+
+	<body onload="initialise(); initialise1(); initialise2()">
+
+		<div class="reveal">
+
+			<div class="menubar">
+				<ul class="menu"></ul>
+			</div>
+
+
+
+			<div class="slides">
+
+				<!-- *************************************************************************************************************  -->
+				<section data-background="images/rotating_embryo.gif" data-background-opacity="0.15" data-background-size="55%" data-name="Home">
+					<br>
+					<h4>Giovanni Dalmasso <i>et al.</i></h4>
+					<p> * * * </p>
+					<p class="fs-40 blue1"><b>Fearless</b></p>
+					<p class="fs-30 blue1 italic"><i>4D reconstruction of developmental <br> trajectories using spherical harmonics</i></p>
+
+					<div class="container" style="margin-top:30px">
+
+						<a href="https://www.cell.com/developmental-cell/fulltext/S1534-5807(22)00580-9?rss=yes&utm_source=dlvr.it&utm_medium=twitter#%20" target="_blank"><img src="images/DCell.jpg" alt="" height="60"></a>
+
+						<a href="https://github.com/gioda/4D-reconstruction-of-developmental-trajectories-using-spherical-harmonics" target="_blank">
+						 <img src="images/GitHub.jpg" alt="" height="60"></a>
+
+						<a href="mailto:giovanni.dalmasso@embl.es" target="_blank"><img src="images/mail.png" alt="" height="60"></a>
+
+						<a href="https://twitter.com/giodalmasso" target="_blank"><img src="images/tw.png" alt="" height="60"></a>
+
+					</div>
+
+					<a href="https://vedo.embl.es" target="_blank"><img src="images/vedo.png" alt="" height="50" style="margin-right:30px"></a>
+
+					<a href="https://www.revolvermaps.com/livestats/5u8vosp30vr/">
+						<img src="https://rf.revolvermaps.com/h/m/a/7/00ff6c/100/40/5u8vosp30vr.png" width="200" height="100" alt="Map" style="border:0; margin-right:30px">
+					</a>
+
+					<img class='blur-box' src="images/embl_logo.gif" alt="" height="50" >
+
+
+				</section>
+
+				<!-- new section inclunding a video -->
+				<section data-name="Video Abstract">
+					<div>
+					  <video id="myVideo" data-autoplay src="images/VideoAbstract.m4v"></video>
+					  <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+					  <button id="playButton">Play</button>
+					  <button id="pauseButton">Pause</button>
+					  <!-- <button id="playButton"><i class="fa-solid fa-play fa-2xl"></i></button>
+					  <button id="pauseButton"><i class="fa-solid fa-pause fa-2xl"></i></button> -->
+					</div>
+				</section>
+
+				<!-- <style>
+					.button-icon {
+					  border: none;
+					  background-color: transparent;
+					  padding: 0;
+					  cursor: pointer;
+					}
+				</style> -->
+
+
+				<section data-name="Limb">
+
+					<section>
+						<h4>Time sequence without the flank region</h4>
+						<div>
+							<video data-autoplay src="images/movie1.mov"></video>
+						</div>
+						<br>
+						<div class='fs-12'>[hit arrow down for an interactive view..]</div>
+					</section>
+
+					<section class="justify-center">
+							<div class="infoContent">
+								<div>
+									<span id="timeStage">Stage</span>
+								</div>
+								<div style="display:block; width: 100%;">
+									<input
+										type="range"
+										id=timeStageSlider
+										oninput="setCurrentStage(this.valueAsNumber)"
+										style="width:100%">
+								</div>
+							</div>
+
+							<div class="modal" id="loadingIndicator">
+								<div class="modalContent">
+								<div>
+									Loading... <span id="fileNumber"></span>.
+								</div>
+								</div>
+							</div>
+
+							<div id='vtkcanvas' style='height: 600px; width: 100%;'>
+							</div>
+							<!-- <br> -->
+							<div class='fs-12 red4'>
+								[zoom & drag me - I'm 3D interactive!]
+							</div>
+							<div class='fs-10 blue1'>
+								|Mouse --> Left-click: rotate scene, Shift-click: pan scene, Scroll: zoom scene in or out, Cntrl-click: rotate scene|
+							</div>
+							<div class='fs-10 italic'>
+								<font size="-1"> (Check out full documentation at:  <a href="https://vedo.embl.es" target="_blank">vedo.embl.es</a>) </font>
+							</div>
+					</section>
+
+				</section>
+
+				<section data-name="Limb-Flank">
+
+					<section>
+						<h4>Time sequence with the flank region</h4>
+						<div>
+							<video data-autoplay src="images/movie2.mov"></video>
+						</div>
+						<br>
+						<div class='fs-12'>[hit arrow down for an interactive view..]</div>
+					</section>
+
+					<section class="justify-center">
+							<div class="infoContent">
+								<div>
+									<span id="timeStage1">Stage</span>
+								</div>
+								<div style="display:block; width: 100%;">
+									<input
+										type="range"
+										id=timeStageSlider1
+										oninput="setCurrentStage1(this.valueAsNumber)"
+										style="width:100%">
+								</div>
+							</div>
+
+							<div class="modal" id="loadingIndicator1">
+								<div class="modalContent">
+								<div>
+									Loading... <span id="fileNumber1"></span>.
+								</div>
+								</div>
+							</div>
+
+							<div id='vtkcanvas1' style='height: 600px; width: 100%;'>
+							</div>
+							<!-- <br> -->
+							<div class='fs-12 red4'>
+								[zoom & drag me - I'm 3D interactive!]
+							</div>
+							<div class='fs-10 blue1'>
+								|Mouse --> Left-click: rotate scene, Shift-click: pan scene, Scroll: zoom scene in or out, Cntrl-click: rotate scene|
+							</div>
+							<div class='fs-10 italic'>
+								<font size="-1"> (Check out full documentation at:  <a href="https://vedo.embl.es" target="_blank">vedo.embl.es</a>) </font>
+							</div>
+					</section>
+
+				</section>
+
+				<section data-name="Heart">
+
+					<section>
+						<h4>Wildtype mouse heart growth</h4>
+						<div>
+							<video data-autoplay src="images/movieHeart.mov"></video>
+						</div>
+						<br>
+						<div class='fs-12'>[hit arrow down for an interactive view..]</div>
+					</section>
+
+
+
+
+					<section class="justify-center">
+							<div class="infoContent">
+								<div>
+									<span id="timeStage2">Stage</span>
+								</div>
+								<div style="display:block; width: 100%;">
+									<input
+										type="range"
+										id=timeStageSlider2
+										oninput="setCurrentStage2(this.valueAsNumber)"
+										style="width:100%">
+								</div>
+							</div>
+
+							<div class="modal" id="loadingIndicator2">
+								<div class="modalContent">
+								<div>
+									Loading... <span id="fileNumber2"></span>.
+								</div>
+								</div>
+							</div>
+
+							<div id='vtkcanvas2' style='height: 600px; width: 100%;'>
+							</div>
+							<!-- <br> -->
+							<div class='fs-12 red4'>
+								[zoom & drag me - I'm 3D interactive!]
+							</div>
+							<div class='fs-10 blue1'>
+								|Mouse --> Left-click: rotate scene, Shift-click: pan scene, Scroll: zoom scene in or out, Cntrl-click: rotate scene|
+							</div>
+							<div class='fs-10 italic'>
+								<font size="-1"> (Check out full documentation at:  <a href="https://vedo.embl.es" target="_blank">vedo.embl.es</a>) </font>
+							</div>
+
+							<div class='fs-12'>[hit arrow down for more info...]</div>
+					</section>
+
+
+					<section>
+						<h4>Wildtype mouse heart growth</h4>
+						<img src="images/heart1.gif" alt="" height="400">
+						<img src="images/heart2.gif" alt="" height="400">
+					</section>
+
+				</section>
+
+			</div>
+
+		</div>
+
+
+		<!-- ==================================================================================================================== -->
+		<script src="js/reveal.js"></script>
+		<script src="plugin/customcontrols/plugin.js"></script>
+		<script src="plugin/simplemenu/simplemenu.js"></script>
+		<script src="js/vtk.js"></script>
+		<script src='js/main.js'> </script>
+		<script src='js/main-flank.js'> </script>
+		<script src='js/main-heart.js'> </script>
+		<script>
+			Reveal.initialize({
+				plugins: [
+					Simplemenu,
+				],
+				simplemenu: {
+					auto: true,
+					selectby: 'data-name',
+				},
+			});
+		</script>
+
+		<!-- =================== -->
+		<!-- progress bar update while the video is playing -->
+		<script>
+			const video = document.getElementById('myVideo');
+			const progressBar = document.getElementById('progressBar');
+
+			video.addEventListener('timeupdate', () => {
+			  const progress = (video.currentTime / video.duration) * 100;
+			  progressBar.value = progress;
+			});
+
+			progressBar.addEventListener('click', (e) => {
+			  const scrubTime = (e.offsetX / progressBar.offsetWidth) * video.duration;
+			  video.currentTime = scrubTime;
+			});
+
+			playButton.addEventListener('click', () => {
+				video.play();
+			  });
+
+			pauseButton.addEventListener('click', () => {
+			video.pause();
+			});
+		</script>
+
+
+	</body>
+</html>
