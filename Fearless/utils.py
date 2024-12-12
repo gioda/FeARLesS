@@ -34,13 +34,13 @@ def confirm(message):
 
 def pathExists(path):
     if not os.path.exists(path):
-        os.mkdir(path)
+        os.makedirs(path, exist_ok=True)
         printc("Directory ", path, " Created ", c='green')
     else:
         printc("Directory ", path, " already exists", c='red')
         if confirm("Should I delete the folder and create a new one [Y/N]? "):
             shutil.rmtree(path)
-            os.mkdir(path)
+            os.makedirs(path, exist_ok=True)
             printc("Directory ", path, " Created ", c='green')
         else:
             exit()

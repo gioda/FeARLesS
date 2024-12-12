@@ -89,7 +89,16 @@ printc('tot # limbs --> ', totLimbs, c='y')
 # finding time from limbs' file names
 Tall = []
 for j in range(totLimbs):
-    Tall.append(float(limbs[j].filename.split('/')[-1].split('_')[1]))
+    filename = limbs[j].filename.split('/')[-1].split('.')[0]
+    if '_' in filename:
+        number_part = filename.split('_')[1]
+    else:
+        number_part = filename.split('.')[0]
+    try:
+        Tall.append(float(number_part))
+    except ValueError:
+        print(f"Could not extract a valid number from filename: {filename}")
+        continue
 
 Tall = np.array(Tall)
 printc('Tall \n', Tall, c='y')
@@ -104,7 +113,23 @@ pb = ProgressBar(0, totLimbs, c=2)
 for j in pb.range():
     Mtmp = []
     clmAllTmp = []
-    Mtmp.append(float(limbs[j].filename.split('/')[-1].split('_')[1]))
+#
+    filename = limbs[j].filename.split('/')[-1].split('.')[0]
+    if '_' in filename:
+        try:
+            number_part = filename.split('_')[1]
+        except IndexError:
+            print(f"Unexpected filename format with underscore: {filename}")
+            continue
+    else:
+        number_part = filename.split('.')[0]
+
+    try:
+        Mtmp.append(float(number_part))
+    except ValueError:
+        print(f"Could not extract a valid number from filename: {filename}")
+        continue
+#
 
     clmTmp = computeCLM(limbs[j].pos(xLimb), rmax, N, x0)
 
