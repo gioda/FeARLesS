@@ -1,5 +1,5 @@
 python=3.7
-numpy==1.20.3
+numpy>=1.22
 scipy==1.6.2
 vtk==9.0.3
 vedo==2021.0.5
